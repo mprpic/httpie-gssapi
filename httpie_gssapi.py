@@ -28,6 +28,7 @@ class GSSAPIAuthPlugin(AuthPlugin):
     name = 'GSSAPI auth'
     auth_type = 'gssapi'
     auth_require = False
+    auth_parse = False
 
     def get_auth(self, username=None, password=None):
         """Return a configured HTTPSPNEGOAuth authentication class instance."""
