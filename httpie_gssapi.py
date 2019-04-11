@@ -8,7 +8,7 @@ from httpie import ExitStatus
 from httpie.plugins import AuthPlugin
 from requests_gssapi import HTTPSPNEGOAuth, OPTIONAL, REQUIRED, DISABLED
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __author__ = 'Martin Prpic'
 __licence__ = 'MIT'
 

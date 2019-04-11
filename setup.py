@@ -13,7 +13,7 @@ setup(
     name='httpie-gssapi',
     description='GSSAPI authentication plug-in for HTTPie',
     long_description=description,
-    version='1.0.0',
+    version='1.0.1',
     author='Martin Prpic',
     author_email='martin@nil.bz',
     license='MIT',
