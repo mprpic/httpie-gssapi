@@ -4,7 +4,12 @@ GSSAPI authentication plug-in for HTTPie.
 import os
 import sys
 
-from httpie import ExitStatus
+try:
+    from httpie.status import ExitStatus
+except ImportError:
+    # Support pre-2.0.0 versions
+    from httpie import ExitStatus
+
 from httpie.plugins import AuthPlugin
 from requests_gssapi import HTTPSPNEGOAuth, OPTIONAL, REQUIRED, DISABLED
 
