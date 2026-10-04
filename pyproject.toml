@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "httpie-gssapi"
-version = "1.0.2"
+version = "1.1.0"
 description = "GSSAPI authentication plug-in for HTTPie"
 readme = "README.md"
 license = "MIT"
