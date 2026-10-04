@@ -1,28 +1,20 @@
 """
 GSSAPI authentication plug-in for HTTPie.
 """
+
 import os
 import sys
 
-try:
-    from httpie.status import ExitStatus
-except ImportError:
-    # Support pre-2.0.0 versions
-    from httpie import ExitStatus
-
 from httpie.plugins import AuthPlugin
-from requests_gssapi import HTTPSPNEGOAuth, OPTIONAL, REQUIRED, DISABLED
-
-__version__ = "1.0.2"
-__author__ = "Martin Prpic"
-__licence__ = "MIT"
+from httpie.status import ExitStatus
+from requests_gssapi import DISABLED, OPTIONAL, REQUIRED, HTTPSPNEGOAuth
 
 MUTUAL_AUTH = "HTTPIE_GSSAPI_MUTUAL_AUTH"
 OPPORTUNISTIC_AUTH = "HTTPIE_GSSAPI_OPPORTUNISTIC_AUTH"
 DELEGATE = "HTTPIE_GSSAPI_DELEGATE"
 
 
-def convert_to_bool(value):
+def convert_to_bool(value: str) -> bool:
     """Check if the value of an environment variable is truthy."""
     return value.lower() in ("true", "yes", "1")
 
@@ -35,7 +27,7 @@ class GSSAPIAuthPlugin(AuthPlugin):
     auth_require = False
     auth_parse = False
 
-    def get_auth(self, username=None, password=None):
+    def get_auth(self, username: str | None = None, password: str | None = None) -> HTTPSPNEGOAuth:
         """Return a configured HTTPSPNEGOAuth authentication class instance."""
         mutual_auth = os.getenv(MUTUAL_AUTH, "required").lower()
         if mutual_auth == "required":
@@ -46,9 +38,7 @@ class GSSAPIAuthPlugin(AuthPlugin):
             mutual_auth = DISABLED
         else:
             sys.stderr.write(
-                "httpie_gssapi error: unsupported mutual authentication type {}\n".format(
-                    mutual_auth
-                )
+                f"httpie_gssapi error: unsupported mutual authentication type {mutual_auth}\n"
             )
             sys.exit(ExitStatus.PLUGIN_ERROR)
 

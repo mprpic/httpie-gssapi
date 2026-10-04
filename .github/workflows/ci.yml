@@ -1,0 +1,18 @@
+name: CI
+on: [ push, pull_request ]
+
+jobs:
+  tox:
+    name: Run Tox
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Run all envs
+        uses: fedora-python/tox-github-action@c25c758f96dfb07b749a1034846f449166fd4979 # v43.0
+        with:
+          tox_env: ${{ matrix.tox_env }}
+          # gssapi has no Linux wheels and is compiled against the system Kerberos libraries
+          dnf_install: gcc krb5-devel
+    strategy:
+      matrix:
+        tox_env: [ py311, py312, py313, py314, lint, check-format, typecheck ]
+    runs-on: ubuntu-latest

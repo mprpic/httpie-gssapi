@@ -1,10 +1,56 @@
-[tool.black]
+[build-system]
+requires = ["uv_build>=0.9.28,<0.12.0"]
+build-backend = "uv_build"
+
+[project]
+name = "httpie-gssapi"
+version = "1.0.2"
+description = "GSSAPI authentication plug-in for HTTPie"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [
+    { name = "Martin Prpič", email = "martin.prpic@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Utilities",
+]
+keywords = ["httpie", "gssapi", "kerberos", "spnego"]
+dependencies = [
+    "httpie>=3.0.0",
+    "requests-gssapi>=1.2.0",
+]
+
+[project.entry-points."httpie.plugins.auth.v1"]
+httpie_gssapi = "httpie_gssapi:GSSAPIAuthPlugin"
+
+[project.urls]
+Homepage = "https://github.com/mprpic/httpie-gssapi"
+Repository = "https://github.com/mprpic/httpie-gssapi"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.8.0",
+    "ty",
+    "tox>=4.0.0",
+]
+
+[tool.ruff]
 line-length = 100
 
-[build-system]
-requires = [
-  "setuptools >= 40.9.0",
-  "wheel",
-  "collective.checkdocs",
-]
-build-backend = "setuptools.build_meta"
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+select = ["F", "E", "W", "I", "N"]
+
